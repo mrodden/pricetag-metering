@@ -1,889 +1,162 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Welcome to PriceTag</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EnMaaS · Welcome</title>
+<meta name="description" content="EnMaaS — engineering AI access with clear usage visibility.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ground:#F4F6F3; --surface:#FFFFFF; --surface-2:#EDF1EC;
-  --ink:#14251D; --muted:#5B6B62; --faint:#8A988F;
-  --line:#DDE3DC; --line-strong:#C4CEC3;
-  --accent:#0E7A4B; --accent-ink:#0A5A37; --accent-wash:#E3F1E8;
-  --amber:#B07818; --amber-wash:#F7ECD8;
-  --blue:#2F6FB0;
-  --code-bg:#14251D; --code-ink:#DCE8DF; --code-dim:#7FA18C;
-  --shadow:0 1px 2px rgba(20,37,29,.05),0 8px 24px -12px rgba(20,37,29,.14);
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --ground:#0E1613; --surface:#15201B; --surface-2:#1A271F;
-    --ink:#E7EDE8; --muted:#9DB0A4; --faint:#6F8377;
-    --line:#26332C; --line-strong:#35473D;
-    --accent:#35B377; --accent-ink:#6FD9A3; --accent-wash:#16301F;
-    --amber:#E0A93C; --amber-wash:#33260F;
-    --blue:#6FA8E8;
-    --code-bg:#0A120E; --code-ink:#D3E2D7; --code-dim:#7FA18C;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px -14px rgba(0,0,0,.5);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#0E1613; --surface:#15201B; --surface-2:#1A271F;
-  --ink:#E7EDE8; --muted:#9DB0A4; --faint:#6F8377;
-  --line:#26332C; --line-strong:#35473D;
-  --accent:#35B377; --accent-ink:#6FD9A3; --accent-wash:#16301F;
-  --amber:#E0A93C; --amber-wash:#33260F;
-  --blue:#6FA8E8;
-  --code-bg:#0A120E; --code-ink:#D3E2D7; --code-dim:#7FA18C;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px -14px rgba(0,0,0,.5);
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0; background:var(--ground); color:var(--ink);
-  font:16px/1.65 "IBM Plex Sans",-apple-system,"Segoe UI",Helvetica,sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
-h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif; text-wrap:balance; margin:0}
-p{margin:0 0 1em}
-a{color:var(--accent-ink)}
-code,kbd,pre,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
-:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
-
-.wrap{max-width:980px; margin:0 auto; padding:0 24px}
-
-/* ---------- nav ---------- */
-nav{
-  position:sticky; top:0; z-index:20;
-  background:color-mix(in srgb,var(--ground) 88%,transparent);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);
-}
-nav .wrap{display:flex; align-items:center; gap:18px; height:52px}
-.brand{display:flex; align-items:center; gap:8px; font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:17px; letter-spacing:-.01em; color:var(--ink); text-decoration:none}
-.brand .tag{
-  display:inline-block; width:22px; height:22px; background:var(--accent);
-  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 45%, -4px 50%, 0 55%);
-  border-radius:4px; position:relative;
-}
-.brand .tag::after{content:"$"; position:absolute; inset:0; display:grid; place-items:center; color:#fff; font:600 13px "IBM Plex Mono",monospace}
-nav .links{margin-left:auto; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none}
-nav .links::-webkit-scrollbar{display:none}
-nav .links a{color:var(--muted); text-decoration:none; font-size:13.5px; white-space:nowrap}
-nav .links a:hover{color:var(--ink)}
-nav .links a.cta{color:var(--accent-ink); font-weight:600}
-
-/* ---------- hero ---------- */
-header{position:relative; overflow:hidden; border-bottom:1px solid var(--line)}
-#flow{position:absolute; inset:0; width:100%; height:100%}
-.hero{position:relative; padding:72px 0 30px}
-.eyebrow{
-  display:inline-flex; align-items:center; gap:8px;
-  font:600 12px/1 "IBM Plex Mono",monospace; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--accent-ink); background:var(--accent-wash);
-  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-  padding:7px 12px; border-radius:99px; margin-bottom:22px;
-}
-h1{font-size:clamp(40px,6.4vw,64px); line-height:1.04; letter-spacing:-.025em; font-weight:800}
-h1 .pricetag{color:var(--accent)}
-.hero .sub{max-width:56ch; color:var(--muted); font-size:18px; margin-top:18px}
-.hero .sub strong{color:var(--ink); font-weight:600}
-.hero-cta{margin-top:26px}
-/* Group title heading the numbered getting-started sequence (§01–09) */
-.gstart{margin-top:38px; padding-top:30px; border-top:2px solid var(--line-strong); scroll-margin-top:70px}
-.gstart h2{font-size:34px; font-weight:800; letter-spacing:-.02em; margin-bottom:0}
-.gstart + section{padding-top:26px}
-
-/* ---------- sections ---------- */
-section{padding:56px 0 8px}
-#why{padding-top:20px}
-h2{font-size:28px; letter-spacing:-.015em; font-weight:700; margin-bottom:6px}
-.lede{color:var(--muted); margin-bottom:26px}
-h2 .no{font:600 13px "IBM Plex Mono",monospace; color:var(--faint); margin-right:10px; vertical-align:3px}
-
-/* routes table */
-.routes{display:grid; gap:12px}
-.route{
-  display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto; gap:6px 20px; align-items:center;
-  background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
-}
-.route .name{font-weight:600}
-.route .dialect{font:500 12px "IBM Plex Mono",monospace; color:var(--muted)}
-.route .url{font-size:12.5px; color:var(--accent-ink); word-break:break-all}
-.route .auth{
-  font:500 11.5px "IBM Plex Mono",monospace; color:var(--ink);
-  background:var(--surface-2); border:1px solid var(--line); border-radius:6px; padding:4px 8px; white-space:nowrap;
-}
-.route .note{grid-column:1/-1; font-size:13px; color:var(--muted); margin:2px 0 0}
-@media (max-width:760px){.route{grid-template-columns:1fr}.route .auth{justify-self:start}}
-
-/* cards & code */
-.duo{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-/* grid children default to min-width:auto, which lets a long unbroken URL
-   grow the track past the viewport; min-width:0 hands overflow back to pre */
-.duo>*{min-width:0}
-
-/* ---------- claude code window mock (deliberately always-dark — it's a terminal) ---------- */
-.ccwin{margin-top:14px;border-radius:12px;overflow:hidden;background:#0B0F14;border:1px solid #202A36;box-shadow:var(--shadow);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:13px;line-height:1.65}
-.ccwin .bar{display:flex;align-items:center;gap:7px;padding:9px 14px;background:#141B24;border-bottom:1px solid #202A36}
-.ccwin .bar i{width:11px;height:11px;border-radius:50%}
-.ccwin .bar i:nth-child(1){background:#E06C5F}
-.ccwin .bar i:nth-child(2){background:#D8A646}
-.ccwin .bar i:nth-child(3){background:#4CAF6D}
-.ccwin .bar span{margin-left:6px;color:#5C6A7A;font-size:11.5px}
-.ccwin .scr{padding:16px 18px;color:#C9D2DC}
-.ccwin .prompt{margin:0;white-space:nowrap}
-.ccwin .prompt .who{color:#8B7DF5;font-weight:600;padding-right:8px}
-.ccwin .caret{display:inline-block;width:7px;height:15px;background:#8B7DF5;vertical-align:-2px;margin-left:2px;animation:ccblink 1.1s steps(1) infinite}
-@keyframes ccblink{50%{opacity:0}}
-.ccwin .head{color:#93A7FF;font-weight:600;margin:12px 0 2px}
-.ccwin .sub{color:#67727F;margin:0 0 12px}
-.ccwin .rows{overflow-x:auto;padding-bottom:2px}
-.ccwin .r{display:flex;gap:20px;white-space:nowrap}
-.ccwin .r .n{flex:0 0 auto;min-width:290px}
-.ccwin .r .d{color:#67727F;overflow:hidden;text-overflow:ellipsis}
-.ccwin .r.sel .n{color:#41D98C;font-weight:600}
-.ccwin .r.more .n{color:#67727F}
-.ccwin .eff{color:#C9D2DC;margin:12px 0 0}
-.ccwin .eff i{color:#D8A646;font-style:normal}
-.ccwin .out{visibility:hidden}
-@media (max-width:760px){.duo{grid-template-columns:1fr}}
-.card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px; box-shadow:var(--shadow)}
-.card h3{font-size:17px; margin-bottom:4px}
-.card .cap{font-size:13.5px; color:var(--muted); margin-bottom:14px}
-
-.codebox{position:relative; margin:0 0 14px}
-.codebox:last-child{margin-bottom:0}
-.codebox .fname{
-  font:500 11px "IBM Plex Mono",monospace; letter-spacing:.02em;
-  color:var(--faint); margin-bottom:6px;
-}
-pre{
-  margin:0; background:var(--code-bg); color:var(--code-ink);
-  border-radius:10px; padding:14px 16px; overflow-x:auto;
-  font-size:13px; line-height:1.6;
-}
-pre .c{color:var(--code-dim)}
-pre .k{color:#8FD9B2}
-pre .s{color:#E8C37B}
-.codebox pre{padding-right:74px} /* keep code clear of the copy chip's column */
-.copy{
-  position:absolute; top:26px; right:8px; z-index:2;
-  font:600 11px "IBM Plex Mono",monospace; color:#DCE1D4;
-  background:rgba(20,28,22,.92); border:1px solid rgba(255,255,255,.3);
-  border-radius:6px; padding:4px 10px; cursor:pointer;
-  box-shadow:0 1px 3px rgba(0,0,0,.4);
-}
-.copy:hover{color:#fff; border-color:rgba(255,255,255,.55); background:rgba(40,52,44,.95)}
-.copy.done{color:#8FD9B2}
-.hasname .copy{top:32px}
-
-/* steps */
-.steps{counter-reset:st; display:grid; gap:14px; margin:0 0 8px}
-.step{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start}
-.step::before{
-  counter-increment:st; content:counter(st);
-  font:600 13px "IBM Plex Mono",monospace; color:var(--accent-ink);
-  background:var(--accent-wash); border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-  width:26px; height:26px; border-radius:50%; display:grid; place-items:center; margin-top:3px;
-}
-.step .body{min-width:0}
-.step .body h3{font-size:15.5px; margin-bottom:4px}
-.step .body p{font-size:14px; color:var(--muted); margin-bottom:10px}
-
-/* callouts */
-.callout{
-  display:flex; gap:12px; align-items:flex-start;
-  border-radius:10px; padding:13px 16px; font-size:14px; line-height:1.55;
-  border:1px solid var(--line); background:var(--surface-2); margin:14px 0 0;
-}
-.callout.warn{border-color:color-mix(in srgb,var(--amber) 45%,transparent); background:var(--amber-wash)}
-.callout.good{border-color:color-mix(in srgb,var(--accent) 35%,transparent); background:var(--accent-wash)}
-.callout .glyph{flex:none; font:600 13px "IBM Plex Mono",monospace; margin-top:1px}
-.callout.warn .glyph{color:var(--amber)}
-.callout.good .glyph{color:var(--accent)}
-.callout p{margin:0}
-.callout .cbody{flex:1; min-width:0}
-.callout .cbody p{margin-bottom:10px}
-.callout code{font-size:12.5px}
-
-/* hosted section */
-.rates{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:18px 0}
-@media (max-width:640px){.rates{grid-template-columns:1fr}}
-.rate{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
-.rate .top{display:flex; align-items:baseline; gap:6px}
-.rate .v{font:600 26px/1.15 "IBM Plex Mono",monospace; color:var(--accent); font-variant-numeric:tabular-nums}
-.rate .per{font-size:12px; color:var(--faint)}
-.rate .k{font:500 11.5px "IBM Plex Mono",monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:2px}
-.compare{margin-top:22px}
-.compare .row{display:grid; grid-template-columns:170px 1fr auto; gap:12px; align-items:center; margin-bottom:10px; font-size:13.5px}
-.compare .track{height:22px; border-radius:5px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden}
-.compare .fill{height:100%; width:0; border-radius:4px; transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
-.compare .fill.hosted{background:var(--accent)}
-.compare .fill.paid{background:color-mix(in srgb,var(--amber) 55%,var(--surface-2))}
-.compare .amt{font:500 13px "IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
-.compare .save{margin-top:6px; font:600 14px "IBM Plex Mono",monospace; color:var(--amber)}
-
-/* pulse / dashboard band */
-.band{
-  margin-top:56px; border:1px solid var(--line); border-radius:16px; overflow:hidden;
-  background:var(--surface); box-shadow:var(--shadow);
-}
-.band .inner{display:grid; grid-template-columns:1fr 220px; gap:20px; align-items:center; padding:26px}
-@media (max-width:700px){.band .inner{grid-template-columns:1fr}}
-#pulse{width:100%; height:64px; display:block}
-#pulse .wire{fill:none; stroke:var(--blue); stroke-width:2}
-#pulse .glow{fill:var(--blue)}
-#pulse .trail{fill:none; stroke:var(--blue); stroke-width:5; stroke-linecap:round; opacity:.18}
-.band h2{font-size:22px}
-.band p{font-size:14.5px; color:var(--muted); margin:6px 0 14px}
-.btn{
-  display:inline-block; text-decoration:none; font-weight:600; font-size:14.5px;
-  background:var(--accent); color:#fff; border-radius:9px; padding:10px 18px;
-}
-.btn:hover{background:var(--accent-ink)}
-.btn.ghost{background:transparent; color:var(--accent-ink); border:1px solid var(--line-strong); margin-left:8px}
-
-footer{margin:64px 0 40px; padding-top:24px; border-top:1px solid var(--line); color:var(--faint); font-size:13px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
-footer .mono{font-size:12px}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .compare .fill{transition:none}
-}
+:root{--bg:#fff;--soft:#f5f8f6;--card:#fff;--ink:#15231d;--muted:#52655b;--dim:#788a80;--line:#dce7df;--en:#087f50;--maas:#2f65c8;--amber:#d39218;--red:#c84d4d;--code:#14251d;--shadow:0 12px 30px rgba(21,35,29,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--bg);font:16px/1.65 "IBM Plex Sans",sans-serif;-webkit-font-smoothing:antialiased}a{color:var(--maas)}code,pre,.mono{font-family:"IBM Plex Mono",monospace}.shell{max-width:1120px;margin:auto;padding:0 28px}.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.top .shell{height:66px;display:flex;align-items:center;gap:28px}.brand{color:var(--ink);text-decoration:none;font:800 24px "Bricolage Grotesque",sans-serif;letter-spacing:-.04em}.brand .en{color:var(--en)}.brand .maas{color:var(--maas)}.nav{margin-left:auto;display:flex;gap:20px;overflow:auto}.nav a{color:var(--muted);text-decoration:none;font-size:13px;white-space:nowrap}.nav a:hover{color:var(--maas)}.nav .key{color:#fff;background:var(--maas);padding:5px 10px;border-radius:6px;font-weight:600}
+.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#eef8f1,#f7f9ff 68%,#fff);border-bottom:1px solid var(--line)}#flow{position:absolute;inset:0;width:100%;height:100%;opacity:.35}.floaters{position:absolute;inset:0;overflow:hidden;pointer-events:none}.floater{position:absolute;color:rgba(8,127,80,.28);font:500 18px "IBM Plex Mono",monospace;animation:float 9s ease-in-out infinite}.floater:nth-child(2n){color:rgba(47,101,200,.25);animation-duration:12s}.floater:nth-child(3n){color:rgba(211,146,24,.3);animation-duration:10s}@keyframes float{0%,100%{transform:translate3d(0,12px,0) rotate(-2deg);opacity:.25}50%{transform:translate3d(12px,-18px,0) rotate(3deg);opacity:.75}}.hero .shell{position:relative;padding:28px 28px 62px}.eyebrow{display:inline-block;color:var(--en);background:#e3f4e9;border:1px solid #b9e2c8;border-radius:99px;padding:5px 11px;text-transform:uppercase;letter-spacing:.14em;font:600 11px "IBM Plex Mono",monospace}h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;line-height:1.08;margin:0}h1{max-width:750px;margin-top:19px;font-size:clamp(42px,7vw,76px);letter-spacing:-.05em}h1 .en{color:var(--en)}h1 .maas{color:var(--maas)}.hero p{max-width:650px;color:var(--muted);font-size:18px;margin:20px 0 0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-block;text-decoration:none;border-radius:7px;padding:9px 14px;background:var(--maas);color:#fff;font-weight:600;font-size:14px}.btn:hover{filter:brightness(1.08)}.btn.alt{background:transparent;border:1px solid var(--line);color:var(--maas)}.gateway{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:25px;padding:13px 15px;border:1px solid #b9d8c4;border-radius:10px;background:rgba(255,255,255,.8);max-width:850px}.gateway-label{color:var(--en);font:600 11px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase}.gateway code{color:var(--ink);font-size:14px;font-weight:600}.gateway small{color:var(--muted);font-size:12px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:25px}.chip{padding:4px 9px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:#fff;font:500 11px "IBM Plex Mono",monospace}
+section{padding:62px 0 0;scroll-margin-top:82px}.head{max-width:690px;margin-bottom:24px}h2{font-size:clamp(29px,4vw,43px);letter-spacing:-.035em}.lede{margin:11px 0 0;color:var(--muted);font-size:17px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{padding:23px;border:1px solid var(--line);border-radius:13px;background:var(--card);box-shadow:var(--shadow)}.card h3{font-size:20px;margin-bottom:6px}.card p{color:var(--muted);margin:0 0 13px}.accent{border-top:4px solid var(--en)}.blue{border-top:4px solid var(--maas)}.warning{display:flex;gap:12px;padding:16px 18px;border:1px solid #f1d99e;border-radius:11px;background:#fffaf0;color:var(--muted)}.warning strong{color:#94620d}.warning .icon{color:var(--amber);font:600 17px "IBM Plex Mono",monospace}.fallback{margin-top:11px;border-color:#e9bcbc;background:#fff6f6}.fallback strong{color:var(--red)}.code{position:relative;margin-top:13px}.code pre{margin:0;overflow:auto;padding:16px;border-radius:9px;background:var(--code);color:#d9eee0;font-size:12px;line-height:1.65}.copy{position:absolute;right:7px;top:7px;border:1px solid #527262;background:#1b3325;color:#d9eee0;border-radius:5px;padding:4px 8px;cursor:pointer;font:11px "IBM Plex Mono",monospace}.copy.done{color:#77f0ac}
+.tool{display:grid;grid-template-columns:68px 1fr;gap:17px;align-items:start;padding:20px 0;border-top:1px solid var(--line)}.tool:first-child{border-top:0}.tool-icon{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:#eef4ff;color:var(--maas);font:700 21px "Bricolage Grotesque",sans-serif}.tool-icon svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.claude-logo{background:#fff0e6;color:#d97735}.claude-logo svg{fill:currentColor;stroke:none}.codex-logo{background:#eaf3ed;color:#16805b}.opencode-logo{background:#eef4ff;color:var(--maas)}.setup-heading{margin:18px 0 5px;color:var(--ink);font:600 17px "Bricolage Grotesque",sans-serif}.setup-heading code{font:600 15px "IBM Plex Mono",monospace}.setup-copy{margin:0 0 9px!important;color:var(--muted)!important;font-size:13px!important}.tool-info{margin-top:11px!important;padding:10px 12px;border-left:3px solid var(--maas);background:#f5f8ff;color:var(--muted)!important;font-size:13px!important}.tool-note{margin:0 0 7px!important;color:var(--dim)!important;font:400 11px "IBM Plex Mono",monospace!important;letter-spacing:.01em}.tool h3{font-size:20px}.tool p{margin:4px 0 8px;color:var(--muted);font-size:14px}.tool pre{font-size:11.5px;padding:12px}.tool .copy{top:5px}.soon{display:flex;align-items:center;gap:10px;padding:13px 15px;border:1px dashed #b8c8df;border-radius:9px;color:var(--muted);background:#f6f9ff}.soon b{color:var(--maas)}
+.dashboard-card{position:relative;overflow:hidden;background:linear-gradient(135deg,#07120d,#0b1721 58%,#07100c);border-color:#1c4936;color:#e6f6eb;box-shadow:0 16px 48px rgba(5,16,10,.24)}.dashboard-card:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(rgba(57,229,140,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(47,101,200,.13) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(135deg,#000,transparent 80%)}.dashboard-card>*{position:relative;z-index:1}.dashboard-card .preview-tag{color:#70e6a6;text-shadow:0 0 12px rgba(57,229,140,.45)}.dashboard-card .bar-label{color:#b8d7c2}.dashboard-card .bar-track{background:#14271e;border-color:#244737}.dashboard-card .pie{box-shadow:0 0 28px rgba(57,229,140,.18),inset 0 0 24px rgba(0,0,0,.35)}.dashboard-card .pie:after{background:#07120d;box-shadow:inset 0 0 0 1px #244737}.dashboard-card .pie-label{color:#e6f6eb}.dashboard-card .bar-fill{box-shadow:0 0 12px rgba(57,229,140,.48);animation:barPulse 2.8s ease-in-out infinite}.dashboard-card .bar-fill.blue{box-shadow:0 0 12px rgba(120,160,255,.5);animation-delay:.35s}.dashboard-card .bar-fill.amber{box-shadow:0 0 12px rgba(255,209,102,.45);animation-delay:.7s}@keyframes barPulse{50%{filter:brightness(1.3)}}.dashboard{display:block}.pie-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:14px 0 26px}.mini-pie-card{display:grid;justify-items:center;gap:10px;color:#b8d7c2;font:500 12px "IBM Plex Mono",monospace}.mini-pie{width:126px;height:126px;border-radius:50%;position:relative;animation:spinIn 1.4s ease both}.mini-pie:after{content:"";position:absolute;inset:27px;border-radius:50%;background:#07120d;box-shadow:inset 0 0 0 1px #244737}.mini-pie-label{position:absolute;inset:0;z-index:1;display:grid;place-items:center;text-align:center;color:#e6f6eb;font:600 11px "IBM Plex Mono",monospace}.pie-hosted{background:conic-gradient(var(--en) 0 68%,var(--maas) 68% 100%)}.pie-models{background:conic-gradient(var(--maas) 0 44%,var(--en) 44% 76%,var(--amber) 76% 100%)}.pie-tokens{background:conic-gradient(var(--amber) 0 51%,var(--en) 51% 79%,var(--maas) 79% 100%)}.bars{display:grid;gap:13px}display:grid;gap:13px}.bar-row{display:grid;grid-template-columns:290px minmax(0,1fr) auto;align-items:center;gap:16px;margin:10px 0}.bar-name{color:#d3e6d8;font:500 13px "IBM Plex Mono",monospace}.bar-amount{min-width:92px;text-align:right;color:#e6f6eb;font:600 13px "IBM Plex Mono",monospace;white-space:nowrap}.bar-row .bar-track{margin-top:0}.bar-label{display:flex;justify-content:space-between;gap:24px;color:var(--muted);font:12px "IBM Plex Mono",monospace}.bar-track{height:13px;margin-top:5px;border-radius:99px;background:#edf3ef;overflow:hidden}.bar-fill{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--en),#65d997);transition:width 1.5s cubic-bezier(.2,.8,.2,1)}.bar-fill.blue{background:linear-gradient(90deg,#7a9ee6,var(--maas))}.bar-fill.amber{background:linear-gradient(90deg,#e3bc62,var(--amber))}.preview-tag{display:inline-block;margin-bottom:9px;color:var(--maas);font:600 11px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase}@keyframes spinIn{from{transform:rotate(-30deg) scale(.78);opacity:0}to{transform:none;opacity:1}}
+.temporary-note{display:grid;gap:8px;margin-top:22px;padding:18px 20px;border:1px solid #b8ccef;border-left:4px solid var(--maas);border-radius:10px;background:#f5f8ff;max-width:850px}.temporary-note strong{color:var(--ink);font:600 16px "Bricolage Grotesque",sans-serif}.temporary-note span{color:var(--muted);font-size:14px}.temporary-note .btn{justify-self:start;margin-top:4px}footer{margin:66px 0 30px;padding-top:17px;border-top:1px solid var(--line);color:var(--dim);font-size:12px}@media(max-width:720px){.shell{padding:0 18px}.top .shell{height:60px}.nav{gap:12px}.hero .shell{padding:54px 18px}.grid{grid-template-columns:1fr}.dashboard{grid-template-columns:1fr}.pie{margin:auto}}
 </style>
 </head>
 <body>
+<header class="hero" id="top"><canvas id="flow" aria-hidden="true"></canvas><div class="shell"><h1>Welcome to <span class="en">En</span><span class="maas">MaaS</span></h1><p>One key gives you access to a single gateway through which you can use frontier and hosted models, supporting Messages, Chat Completions, Responses, Conversations, and model discovery—with usage visibility built in.</p><div class="actions"><a class="btn" href="https://devservices.dpp.openshift.com/support/enmaas/" target="_blank" rel="noopener noreferrer">Get a key ↗ <small>(VPN required)</small></a><a class="btn alt" href="#quickstart">Try the API ↓</a></div></div></header>
+<main class="shell">
+<section id="access"><div class="head"><h2>Access is managed through Atlas.</h2><p class="lede">Use the Atlas onboarding flow to request, receive, and manage your EnMaaS key. The Atlas page requires the corporate VPN.</p></div><div class="grid"><div class="card accent"><h3>Get a key</h3><p>Atlas will handle key generation and onboarding. Please do not send key requests directly to individual operators.</p><a class="btn" href="https://devservices.dpp.openshift.com/support/enmaas/" target="_blank" rel="noopener noreferrer">Open Atlas onboarding ↗ <small>(VPN required)</small></a></div><div class="card blue"><h3>Ask questions</h3><p>Feedback, questions, and onboarding support are welcome in the EnMaaS Slack channel.</p><a class="btn alt" href="https://slack.com/archives/forum-enmaas">#forum-enmaas ↗</a></div></div><div class="card blue" style="margin-top:16px"><h3>Connect your client</h3><p>After you receive your key through Atlas, point your client at the EnMaaS gateway below, then choose the setup instructions for your tool.</p><div class="gateway"><span class="gateway-label">AI Gateway</span><code>{{GATEWAY_URL}}</code><small>Messages · Chat Completions · Responses · Conversations · Models</small></div></div></section>
+<section id="quickstart"><div class="head"><h2>Let’s test your connection.</h2><p class="lede">Run this curl smoke test to verify that your key reaches the live EnMaaS gateway. Keep your key in a secret manager or protected environment variable.</p></div><div class="card"><h3>Connection smoke test</h3><p>This test sends one small request through the Anthropic Messages API using the hosted GLM model.</p><div class="code"><button class="copy">copy</button><pre>export ENMAAS_KEY='your-key'
 
-<nav>
-  <div class="wrap">
-    <a class="brand" href="#"><span class="tag"></span>PriceTag</a>
-    <div class="links">
-      <a href="#key">Key</a>
-      <a href="#quickstart">Quick start</a>
-      <a href="#claude">Claude Code</a>
-      <a href="#codex">Codex</a>
-      <a href="#opencode">OpenCode</a>
-      <a href="#hermes">Hermes CLI</a>
-      <a href="#pi">Pi</a>
-      <a href="#openclaw">OpenClaw</a>
-      <a href="#hosted">Hosted models</a>
-      <a class="cta" href="{{DASHBOARD_URL}}/dashboard">Dashboard ↗</a>
-    </div>
-  </div>
-</nav>
-
-<header>
-  <canvas id="flow" aria-hidden="true"></canvas>
-  <div class="wrap hero">
-    <span class="eyebrow">◈ Every token, priced</span>
-    <h1>Welcome to <span class="pricetag">PriceTag</span></h1>
-    <p class="sub">One gateway for <strong>Claude</strong>, <strong>OpenAI</strong> and our own <strong>hosted models</strong> — with every request metered to you, in real time. Point your tools at it once; usage, spend and savings land in your dashboard automatically.</p>
-    <p class="hero-cta"><a class="btn" href="#start">Get started ↓</a></p>
-  </div>
-</header>
-
-<div class="wrap">
-
-<!-- ============ WHY (value proposition, above the fold of getting started) ============ -->
-<section id="why">
-  <h2>One key. Every frontier model. A fraction of the price.</h2>
-  <p class="lede">A single PriceTag key reaches the full Claude lineup and the GPTs — and our own hosted models sit right beside them, at a fraction of the vendor price. Same gateway, same metering; the only difference is the number.</p>
-  <h3 style="margin-top:26px">This is how PriceTag saves you money</h3>
-  <p class="cap">Do your day-to-day work on the hosted models — from <strong>Claude Code</strong>, <strong>Codex</strong>, <strong>OpenCode</strong> or <strong>Pi</strong>, all of them point at the same gateway and the same key — and the same tokens cost a fraction of the frontier price:</p>
-  <div class="compare" id="compare">
-    <div class="row"><span>Hosted Flash — output</span><div class="track"><div class="fill hosted" data-w="3"></div></div><span class="amt">$0.47 / MTok</span></div>
-    <div class="row"><span>Hosted GLM 5.3 — output</span><div class="track"><div class="fill hosted" data-w="1"></div></div><span class="amt">$0.00 / MTok</span></div>
-    <div class="row"><span>Frontier Claude — output</span><div class="track"><div class="fill paid" data-w="100"></div></div><span class="amt">$15.00 / MTok</span></div>
-    <div class="save">≈ 97–100% cheaper per output token, depending on the hosted model — GLM is free outright — and every dollar saved is counted on your dashboard</div>
-  </div>
-
-  <h3 style="margin-top:30px">Switching between frontier and hosted models is trivial</h3>
-  <p class="cap">With PriceTag there is nothing to reconfigure when you change your mind — frontier models and local hosted ones live in the same list, under the same key. This is what it looks like in Claude Code: type <span class="mono">/model</span> and the hosted model sits right in the picker, next to the Claudes:</p>
-  <div class="ccwin" id="ccwin" role="img" aria-label="Claude Code model picker showing Qwen 3.8 Flash Next selected">
-    <div class="bar"><i></i><i></i><i></i><span>claude — PriceTag gateway</span></div>
-    <div class="scr" id="cpanel">
-      <p class="prompt"><span class="who">&gt;</span><span id="ctyped">/model</span><span class="caret" aria-hidden="true"></span></p>
-      <p class="head">Select model</p>
-      <p class="sub">Switch between Claude models. Your pick becomes the default for new sessions. For other/previous model names, specify with --model.</p>
-      <div class="rows">
-        <div class="r"><span class="n">1. Fable</span><span class="d">Claude Fable 5 · Frontier reasoning · $10/$50 per Mtok</span></div>
-        <div class="r"><span class="n">2. Opus 5</span><span class="d">Claude Opus 5 · Deep thinking · $5/$25 per Mtok</span></div>
-        <div class="r"><span class="n">3. Sonnet 5</span><span class="d">Claude Sonnet 5 · $2/$10 per Mtok</span></div>
-        <div class="r"><span class="n">4. Haiku</span><span class="d">Haiku 4.5 · Fastest for quick answers · $1/$5 per Mtok</span></div>
-        <div class="r sel"><span class="n">▸ 5. Qwen 3.8 Flash Next (NVFP4) ✓</span><span class="d">Hosted-Model vLLM via PriceTag gateway · $0.15/$0.47 per Mtok</span></div>
-        <div class="r"><span class="n">6. GLM 5.3</span><span class="d">Hosted-Model via PriceTag gateway · Free — $0.00/$0.00 per Mtok</span></div>
-      </div>
-      <p class="eff"><i>◐</i> Medium effort <i>←/→</i> to adjust</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GET STARTED (heads the numbered 01–07 sequence) ============ -->
-<div class="gstart" id="start">
-  <h2>Get Started</h2>
-</div>
-
-<!-- ============ KEY ============ -->
-<section id="key">
-  <h2><span class="no">01</span>Get a key</h2>
-  <p class="lede">One key works across every API path on the gateway. Keys are issued by a gateway admin — <strong>Noy Itzikowitz</strong> or <strong>Yossi Ovadia</strong>: ask for one and you will get a claim link; open it, sign in with SSO, and your <span class="mono">pk-…</span> key is revealed exactly once.</p>
-</section>
-
-<!-- ============ QUICKSTART ============ -->
-<section id="quickstart">
-  <h2><span class="no">02</span>Quick start</h2>
-  <p class="lede">Two commands to prove everything works, before you touch any config file.</p>
-  <div class="duo">
-    <div class="card">
-      <h3>Smoke test with curl</h3>
-      <p class="cap">A chat completion through the gateway.</p>
-      <div class="codebox hasname"><div class="fname">bash</div><button class="copy">copy</button><pre>curl <span class="s">{{GATEWAY_URL}}/v1</span>/chat/completions \
-  -H <span class="k">"Authorization: Bearer $PRICETAG_KEY"</span> \
-  -H <span class="k">"content-type: application/json"</span> \
-  -d <span class="k">'{"model":"gpt-5.6-luna","messages":[
-        {"role":"user","content":"hello from PriceTag"}]}'</span></pre></div>
-    </div>
-    <div class="card">
-      <h3>Claude Code in two lines</h3>
-      <p class="cap">Point it at the gateway and go.</p>
-      <div class="callout warn"><span class="glyph">!</span><div class="cbody">
-        <p>If you've used Vertex or BedLab before, leftover variables silently bypass the gateway — run this <strong>before</strong> the block below, and clear it out of your <code>.zshrc</code> too.</p>
-        <div class="codebox"><button class="copy">copy</button><pre><span class="k">unset</span> CLAUDE_CODE_USE_VERTEX
-<span class="k">unset</span> ANTHROPIC_VERTEX_PROJECT_ID</pre></div>
-      </div></div>
-      <div class="codebox hasname"><div class="fname">bash</div><button class="copy">copy</button><pre><span class="k">export</span> ANTHROPIC_BASE_URL=<span class="s">{{GATEWAY_URL}}</span>
-<span class="k">export</span> ANTHROPIC_API_KEY=<span class="s">$PRICETAG_KEY</span>
-
-claude</pre></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CLAUDE CODE ============ -->
-<section id="claude">
-  <h2><span class="no">03</span>Set up Claude Code, properly</h2>
-  <p class="lede">Make it permanent in <span class="mono">~/.claude/settings.json</span> and teach the <span class="mono">/model</span> picker about the hosted model.</p>
-
-  <div class="steps">
-    <div class="step"><div class="body">
-      <h3>Route the CLI through the gateway</h3>
-      <p>Everything Claude Code needs lives under <span class="mono">env</span> — no shell exports required.</p>
-      <div class="codebox hasname"><div class="fname">~/.claude/settings.json</div><button class="copy">copy</button><pre>{
-  <span class="k">"env"</span>: {
-    <span class="k">"ANTHROPIC_BASE_URL"</span>: <span class="s">"{{GATEWAY_URL}}"</span>,
-    <span class="k">"ANTHROPIC_API_KEY"</span>: <span class="s">"pk-your-key"</span>,
-    <span class="k">"CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY"</span>: <span class="s">"1"</span>
-  }
-}</pre></div>
-      <p>With discovery on, <span class="mono">/model</span> reads the gateway's <span class="mono">/v1/models</span> — so new Claude models appear with no config change.</p>
-    </div></div>
-
-    <div class="step"><div class="body">
-      <h3>Add the hosted models to the picker</h3>
-      <p>Claude Code's model filter only keeps <em>claude/anthropic</em> ids, so discovery alone never shows the hosted models. Pin them explicitly (needs Claude Code ≥ 2.1.242):</p>
-      <div class="codebox hasname"><div class="fname">~/.claude/settings.json — add</div><button class="copy">copy</button><pre>{
-  <span class="k">"modelPicker"</span>: {
-    <span class="k">"options"</span>: [
-      { <span class="k">"model"</span>: <span class="s">"Inferact/Qwen3.8-Flash-Next-NVFP4"</span>,
-        <span class="k">"label"</span>: <span class="s">"Qwen 3.8 Flash Next"</span>,
-        <span class="k">"description"</span>: <span class="s">"Hosted vLLM via PriceTag — $0.15/$0.47 per MTok"</span> },
-      { <span class="k">"model"</span>: <span class="s">"rits/zai-org/glm-5-3"</span>,
-        <span class="k">"label"</span>: <span class="s">"GLM 5.3"</span>,
-        <span class="k">"description"</span>: <span class="s">"Hosted via PriceTag — free"</span> }
-    ]
-  },
-  <span class="k">"modelSettings"</span>: {
-    <span class="s">"Inferact/Qwen3.8-Flash-Next-NVFP4"</span>: { <span class="k">"effortLevel"</span>: <span class="s">"medium"</span> }
-  }
-}</pre></div>
-      <div class="callout warn"><span class="glyph">!</span><p>Use the model id <strong>exactly</strong> as shown — an unknown id falls through to Anthropic and 404s. And keep <span class="mono">effortLevel</span> at <span class="mono">"medium"</span>: the hosted endpoint accepts <span class="mono">low/medium/xhigh</span> and rejects <span class="mono">"high"</span>.</p></div>
-      <div class="callout warn"><span class="glyph">!</span><p><strong>Expect some Sonnet/Haiku rows even on an all-Qwen setup.</strong> Claude Code runs some internal requests on the Sonnet / Haiku-class model regardless of the model selected in <span class="mono">/model</span> — conversation summaries for <span class="mono">--resume</span>, status commands like <span class="mono">/usage</span>, background classification, and (by default) subagents. They go through the same gateway base URL, carry the full session context, and show up under your usage as <span class="mono">claude-sonnet-*</span> / <span class="mono">claude-haiku-*</span>. To pin those calls to a gateway model too, set <span class="mono">ANTHROPIC_DEFAULT_SONNET_MODEL</span> / <span class="mono">ANTHROPIC_DEFAULT_HAIKU_MODEL</span> (and optionally <span class="mono">CLAUDE_CODE_SUBAGENT_MODEL</span>) to a gateway model id in your launcher.</p></div>
-    </div></div>
-  </div>
-</section>
-
-<!-- ============ CODEX ============ -->
-<section id="codex">
-  <h2><span class="no">04</span>Set up Codex</h2>
-  <p class="lede">Codex speaks OpenAI Responses. GPT, hosted Qwen, and GLM use the same gateway host. Configure the providers once, then select a profile:</p>
-  <div class="codebox hasname"><div class="fname">~/.codex/config.toml</div><button class="copy">copy</button><pre><span class="c"># OpenAI-compatible models use the same gateway and Bearer auth.</span>
-[<span class="k">model_providers.pricetag</span>]
-name     = <span class="s">"PriceTag"</span>
-base_url = <span class="s">"{{GATEWAY_URL}}/v1"</span>
-env_key  = <span class="s">"PRICETAG_KEY"</span>
-wire_api = <span class="s">"responses"</span>
-
-[<span class="k">model_providers.hosted</span>]
-name     = <span class="s">"PriceTag hosted"</span>
-base_url = <span class="s">"{{GATEWAY_URL}}/v1"</span>
-env_key  = <span class="s">"PRICETAG_KEY"</span>
-wire_api = <span class="s">"responses"</span></pre></div>
-  <div class="codebox hasname"><div class="fname">~/.codex/pricetag.config.toml</div><button class="copy">copy</button><pre>model          = <span class="s">"gpt-5.3-codex"</span>
-model_provider = <span class="s">"pricetag"</span></pre></div>
-  <div class="codebox hasname"><div class="fname">~/.codex/qwen.config.toml</div><button class="copy">copy</button><pre>model          = <span class="s">"Inferact/Qwen3.8-Flash-Next-NVFP4"</span>
-model_provider = <span class="s">"hosted"</span>
-<span class="c"># Codex has no built-in metadata for this model id; 262144 = 256K.</span>
-model_context_window = 262144</pre></div>
-  <div class="codebox hasname"><div class="fname">~/.codex/glm.config.toml</div><button class="copy">copy</button><pre>model          = <span class="s">"rits/zai-org/glm-5-3"</span>
-model_provider = <span class="s">"hosted"</span>
-model_context_window = 262144</pre></div>
-  <div class="codebox"><button class="copy">copy</button><pre><span class="k">export</span> PRICETAG_KEY=<span class="s">pk-your-key</span>
-codex --profile pricetag  <span class="c"># or: qwen / glm</span></pre></div>
-  <div class="callout good"><span class="glyph">✓</span><p>Codex only shows built-in models in its <span class="mono">/model</span> picker, so pin hosted model ids in profiles. The <span class="mono">model_context_window</span> line avoids the "Model metadata not found" warning.</p></div>
-</section>
-
-<!-- ============ OPENCODE ============ -->
-<section id="opencode">
-  <h2><span class="no">05</span>Set up OpenCode</h2>
-  <p class="lede">Use a separate EnMaaS launcher so your existing OpenCode configuration keeps working. This setup uses an isolated config/data directory, a key file, and a private OpenCode server.</p>
-  <div class="steps">
-    <div class="step"><div class="body">
-      <h3>Save your key</h3>
-      <p>Replace <span class="mono">pk-your-key</span> with the key from your claim link. Keep the file private:</p>
-      <div class="codebox hasname"><div class="fname">terminal</div><button class="copy">copy</button><pre>printf <span class="s">'%s\n'</span> <span class="s">'pk-your-key'</span> &gt; ~/.pricetag-key
-chmod 600 ~/.pricetag-key</pre></div>
-    </div></div>
-    <div class="step"><div class="body">
-      <h3>Create an isolated config</h3>
-      <p>Save it as <span class="mono">~/.config/opencode-enmaas/opencode/opencode.jsonc</span>. It does not replace your normal OpenCode config:</p>
-      <div class="codebox hasname"><div class="fname">~/.config/opencode-enmaas/opencode/opencode.jsonc</div><button class="copy">copy</button><pre>{
-  <span class="k">"$schema"</span>: <span class="s">"https://opencode.ai/config.json"</span>,
-  <span class="k">"model"</span>: <span class="s">"openai/gpt-5.6-luna"</span>,
-  <span class="k">"providers"</span>: {
-    <span class="k">"anthropic"</span>: {
-      <span class="k">"env"</span>: [<span class="s">"PRICETAG_API_KEY"</span>],
-      <span class="k">"settings"</span>: { <span class="k">"baseURL"</span>: <span class="s">"{{GATEWAY_URL}}/v1"</span> },
-      <span class="k">"models"</span>: {
-        <span class="k">"claude-sonnet-5"</span>: { <span class="k">"name"</span>: <span class="s">"Claude Sonnet 5 (EnMaaS Vertex)"</span> },
-        <span class="k">"claude-haiku-4-5"</span>: { <span class="k">"name"</span>: <span class="s">"Claude Haiku 4.5 (EnMaaS Vertex)"</span> },
-        <span class="k">"claude-opus-4-8"</span>: { <span class="k">"name"</span>: <span class="s">"Claude Opus 4.8 (EnMaaS Vertex)"</span> },
-        <span class="k">"claude-opus-5-5"</span>: { <span class="k">"name"</span>: <span class="s">"Claude Opus 5.5 (EnMaaS Vertex)"</span> },
-        <span class="k">"rits/zai-org/glm-5-3"</span>: { <span class="k">"name"</span>: <span class="s">"GLM 5.3 (EnMaaS)"</span> }
-      }
-    },
-    <span class="k">"openai"</span>: {
-      <span class="k">"env"</span>: [<span class="s">"PRICETAG_API_KEY"</span>],
-      <span class="k">"settings"</span>: { <span class="k">"baseURL"</span>: <span class="s">"{{GATEWAY_URL}}/v1"</span> },
-      <span class="k">"models"</span>: {
-        <span class="k">"gpt-5.6-luna"</span>: { <span class="k">"name"</span>: <span class="s">"GPT-5.6 Luna (EnMaaS)"</span> },
-        <span class="k">"gpt-5.6-terra"</span>: { <span class="k">"name"</span>: <span class="s">"GPT-5.6 Terra (EnMaaS)"</span> },
-        <span class="k">"gpt-5.6-sol"</span>: { <span class="k">"name"</span>: <span class="s">"GPT-5.6 Sol (EnMaaS)"</span> }
-      }
-    }
-  }
-}</pre></div>
-    </div></div>
-    <div class="step"><div class="body">
-      <h3>Create the launcher</h3>
-      <p>Save this as <span class="mono">~/.local/bin/opencode-enmaas</span>, then run <span class="mono">opencode-enmaas</span>. The <span class="mono">--standalone</span> server keeps this test configuration separate from your normal OpenCode process.</p>
-      <div class="codebox hasname"><div class="fname">~/.local/bin/opencode-enmaas</div><button class="copy">copy</button><pre><span class="k">#!/usr/bin/env bash</span>
-<span class="k">set -euo pipefail</span>
-KEY_FILE=<span class="s">"${PRICETAG_KEY_FILE:-$HOME/.pricetag-key}"</span>
-<span class="k">export</span> PRICETAG_API_KEY=<span class="s">"$(tr -d '[:space:]' &lt; \"$KEY_FILE\")"</span>
-<span class="k">export</span> XDG_CONFIG_HOME=<span class="s">"$HOME/.config/opencode-enmaas"</span>
-<span class="k">export</span> XDG_DATA_HOME=<span class="s">"$HOME/.local/share/opencode-enmaas"</span>
-<span class="k">exec</span> opencode --standalone <span class="s">"$@"</span></pre></div>
-      <p>Make it executable:</p>
-      <div class="codebox"><button class="copy">copy</button><pre>chmod 700 ~/.local/bin/opencode-enmaas
-opencode-enmaas</pre></div>
-    </div></div>
-  </div>
-  <div class="callout good"><span class="glyph">✓</span><div class="cbody">
-    <p><strong>Using another key path?</strong> Set <span class="mono">PRICETAG_KEY_FILE=~/.mykey opencode-enmaas</span>. The key is supplied through the environment and never written into the config.</p>
-    <p style="margin-bottom:0"><strong>Do not run plain <span class="mono">opencode</span> for this test</strong> — use <span class="mono">opencode-enmaas</span> so your working configuration and sessions remain separate.</p>
-  </div></div>
-  <p>Switch models inside OpenCode with <span class="mono">/models</span>. Anthropic, GLM, and OpenAI models use the same gateway host with their correct API dialect and are metered to your PriceTag key.</p>
-  <div class="callout warn"><span class="glyph">!</span><p>Both OpenCode providers use the same host but form different paths and auth headers: Anthropic calls <span class="mono">/v1/messages</span> with <span class="mono">x-api-key</span>; OpenAI-compatible calls use <span class="mono">/v1/chat/completions</span> or <span class="mono">/v1/responses</span> with a Bearer token.</p></div>
-</section>
-
-<!-- ============ HERMES CLI ============ -->
-<section id="hermes">
-  <h2><span class="no">06</span>Set up Hermes CLI</h2>
-  <p class="lede"><a href="https://github.com/NousResearch/hermes-agent" target="_blank">Hermes</a> uses the same gateway host for both native API dialects: GPT through its OpenAI-compatible provider, and Claude/Qwen/GLM through its Anthropic provider. The choice is saved under <span class="mono">model:</span> in <span class="mono">~/.hermes/config.yaml</span> — the <span class="mono">hermes model</span> wizard writes it, or edit it directly:</p>
-  <div class="codebox hasname"><div class="fname">~/.hermes/config.yaml — GPT lineup (OpenAI dialect)</div><button class="copy">copy</button><pre>model:
-  provider: <span class="s">"custom"</span>
-  default:  <span class="s">"gpt-5.3-codex"</span>
-  base_url: <span class="s">"{{GATEWAY_URL}}/v1"</span>   <span class="c"># already ends in /v1</span></pre></div>
-  <div class="codebox hasname"><div class="fname">~/.hermes/config.yaml — hosted models (Anthropic dialect)</div><button class="copy">copy</button><pre>model:
-  provider: <span class="s">"anthropic"</span>
-  default:  <span class="s">"Inferact/Qwen3.8-Flash-Next-NVFP4"</span>   <span class="c"># or "rits/zai-org/glm-5-3" for GLM 5.3</span>
-  base_url: <span class="s">"{{GATEWAY_URL}}/v1"</span>   <span class="c"># the /v1 suffix is required</span></pre></div>
-  <div class="codebox hasname"><div class="fname">~/.hermes/.env — one key, used twice</div><button class="copy">copy</button><pre>OPENAI_API_KEY=<span class="s">pk-your-key</span>
-ANTHROPIC_API_KEY=<span class="s">pk-your-key</span></pre></div>
-  <p>The same PriceTag key works for both dialects. Anthropic clients send <span class="mono">x-api-key</span>; OpenAI-compatible clients send a Bearer token. The path selects the protocol pipeline. Switch providers with <span class="mono">hermes model</span>; <span class="mono">/model</span> inside a session only switches between providers already set up.</p>
-  <div class="callout warn"><span class="glyph">!</span><p>Keep each model on a supported dialect: GPT uses the OpenAI-compatible provider; Claude/Qwen/GLM can use Anthropic, and hosted Qwen/GLM are also exposed on OpenAI-compatible paths. And Hermes auxiliary tasks (session titles, compression) follow the main model by default — pointing the default at the hosted id means those calls ride on it too.</p></div>
-</section>
-
-<!-- ============ PI (pi.dev CLI) ============ -->
-<section id="pi">
-  <h2><span class="no">07</span>Set up Pi</h2>
-  <p class="lede"><a href="https://pi.dev" target="_blank">Pi</a> speaks Anthropic natively and sends the key as <span class="mono">x-api-key</span>. It uses the same gateway URL as OpenAI-compatible clients. Declare PriceTag as a provider in <span class="mono">~/.pi/agent/models.json</span>:</p>
-  <div class="codebox hasname"><div class="fname">~/.pi/agent/models.json</div><button class="copy">copy</button><pre>{
-  <span class="k">"providers"</span>: {
-    <span class="k">"pricetag"</span>: {
-      <span class="k">"name"</span>: <span class="s">"PriceTag"</span>,
-      <span class="k">"baseUrl"</span>: <span class="s">"{{GATEWAY_URL}}"</span>,
-      <span class="k">"api"</span>: <span class="s">"anthropic-messages"</span>,
-      <span class="k">"apiKey"</span>: <span class="s">"$PRICETAG_KEY"</span>,
-      <span class="k">"models"</span>: [
-        {
-          <span class="k">"id"</span>: <span class="s">"Inferact/Qwen3.8-Flash-Next-NVFP4"</span>,
-          <span class="k">"name"</span>: <span class="s">"Qwen 3.8 Flash Next (PriceTag hosted)"</span>,
-          <span class="k">"reasoning"</span>: true,
-          <span class="k">"thinkingLevelMap"</span>: {
-            "off": null, "minimal": null, "low": <span class="s">"low"</span>,
-            "medium": <span class="s">"medium"</span>, "high": null, "xhigh": <span class="s">"xhigh"</span>, "max": null
-          },
-          <span class="k">"input"</span>: [<span class="s">"text"</span>],
-          <span class="k">"cost"</span>: { <span class="k">"input"</span>: 0.15, <span class="k">"output"</span>: 0.47, <span class="k">"cacheRead"</span>: 0.016, <span class="k">"cacheWrite"</span>: 0 },
-          <span class="k">"contextWindow"</span>: 262144,
-          <span class="k">"maxTokens"</span>: 262144
-        },
-        {
-          <span class="k">"id"</span>: <span class="s">"rits/zai-org/glm-5-3"</span>,
-          <span class="k">"name"</span>: <span class="s">"GLM 5.3 (PriceTag hosted)"</span>,
-          <span class="k">"reasoning"</span>: true,
-          <span class="k">"input"</span>: [<span class="s">"text"</span>],
-          <span class="k">"cost"</span>: { <span class="k">"input"</span>: 0, <span class="k">"output"</span>: 0, <span class="k">"cacheRead"</span>: 0, <span class="k">"cacheWrite"</span>: 0 },
-          <span class="k">"contextWindow"</span>: 262144,
-          <span class="k">"maxTokens"</span>: 262144
-        }
-      ]
-    }
-  }
-}</pre></div>
-  <div class="codebox hasname"><div class="fname">the key — any one of these works</div><button class="copy">copy</button><pre><span class="c"># 1. in a Pi session:</span>
-/login pricetag
-
-<span class="c"># 2. ~/.pi/agent/auth.json (chmod 0600) — wins over the env var:</span>
-{ <span class="k">"pricetag"</span>: { <span class="k">"type"</span>: <span class="s">"api_key"</span>, <span class="k">"key"</span>: <span class="s">"pk-…"</span> } }
-
-<span class="c"># 3. plain env, matching the $PRICETAG_KEY reference above:</span>
-export PRICETAG_KEY=pk-your-key</pre></div>
-  <p>Pick the model with <span class="mono">/model</span> → <span class="mono">pricetag/Inferact/Qwen3.8-Flash-Next-NVFP4</span> (or <span class="mono">pricetag/rits/zai-org/glm-5-3</span>) — it stays hidden from the picker until one of the three auth paths is configured. Costs above are the live hosted rates; your dashboard meters the usage the same as every other tool.</p>
-  <div class="callout warn"><span class="glyph">!</span><p>Two traps. <strong>No <code>/v1</code> suffix</strong> on Pi's <span class="mono">baseUrl</span> — Pi appends <code>/v1/messages</code> itself. OpenAI-compatible clients usually configure <code>{{GATEWAY_URL}}/v1</code>. And <strong>map <span class="mono">high</span> to <span class="mono">null</span></strong> in <span class="mono">thinkingLevelMap</span>: Pi offers a <span class="mono">high</span> thinking level, the hosted endpoint rejects it outright, and the request dies — nulling it simply hides the level from the picker. Want to pin a level? <span class="mono">"enabledModels": ["pricetag/Inferact/Qwen3.8-Flash-Next-NVFP4:medium"]</span>.</p></div>
-  <p class="cap"><span class="mono">maxTokens</span> is the <em>output</em> cap, not the context size. Pi clamps each request to <span class="mono">contextWindow − prompt − 4096</span>, so declaring the full window (as above) is safe — the served model reports a 262144-token window and enforces no separate output limit. This recipe was verified end-to-end against the live gateway.</p>
-</section>
-
-<!-- ============ OPENCLAW ============ -->
-<section id="openclaw">
-  <h2><span class="no">08</span>Set up OpenClaw</h2>
-  <p class="lede"><a href="https://openclaw.ai" target="_blank">OpenClaw</a> uses Anthropic <span class="mono">/v1/messages</span> with the key in <span class="mono">x-api-key</span> and shares the gateway URL with OpenAI-compatible clients. Smoke-test the route first, then declare PriceTag as a provider in <span class="mono">~/.openclaw/openclaw.json</span>.</p>
-  <div class="codebox hasname"><div class="fname">smoke test — env + one call</div><button class="copy">copy</button><pre>export PRICETAG_BASE_URL="{{GATEWAY_URL}}"
-export PRICETAG_KEY="pk-your-key"          <span class="c"># keep it secret; never commit it</span>
-
-curl "$PRICETAG_BASE_URL/v1/messages" \
-  -H "x-api-key: $PRICETAG_KEY" \
+curl {{GATEWAY_URL}}/v1/messages \
+  -H "x-api-key: $ENMAAS_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "content-type: application/json" \
-  -d '{"model":"Inferact/Qwen3.8-Flash-Next-NVFP4","max_tokens":256,"messages":[{"role":"user","content":"Reply with exactly OK."}]}'</pre></div>
-  <div class="codebox hasname"><div class="fname">~/.openclaw/openclaw.json</div><button class="copy">copy</button><pre>{
-  <span class="k">"models"</span>: {
-    <span class="k">"providers"</span>: {
-      <span class="k">"pricetag"</span>: {
-        <span class="k">"baseUrl"</span>: <span class="s">"{{GATEWAY_URL}}"</span>,     <span class="c">// no /v1 — OpenClaw appends /v1/messages itself</span>
-        <span class="k">"api"</span>: <span class="s">"anthropic-messages"</span>,      <span class="c">// required — not openai-completions</span>
-        <span class="k">"apiKey"</span>: <span class="s">"$PRICETAG_KEY"</span>,
-        <span class="k">"models"</span>: [
-          {
-            <span class="k">"id"</span>: <span class="s">"Inferact/Qwen3.8-Flash-Next-NVFP4"</span>,
-            <span class="k">"name"</span>: <span class="s">"Qwen 3.8 Flash Next"</span>,
-            <span class="k">"reasoning"</span>: true,
-            <span class="k">"input"</span>: [<span class="s">"text"</span>],
-            <span class="k">"contextWindow"</span>: 262144,
-            <span class="k">"maxTokens"</span>: 262144
-          },
-          {
-            <span class="k">"id"</span>: <span class="s">"rits/zai-org/glm-5-3"</span>,
-            <span class="k">"name"</span>: <span class="s">"GLM 5.3"</span>,
-            <span class="k">"reasoning"</span>: true,
-            <span class="k">"input"</span>: [<span class="s">"text"</span>],
-            <span class="k">"contextWindow"</span>: 262144,
-            <span class="k">"maxTokens"</span>: 262144
-          }
-        ]
-      }
-    }
+  -d '{
+    "model": "claude-haiku-4-5",
+    "max_tokens": 128,
+    "messages": [{"role":"user","content":"Reply with exactly OK."}]
+  }'</pre></div></div></section>
+<section id="tools"><div class="head"><h2>Use the tools you already know.</h2><p class="lede">EnMaaS supports <a href="#tool-claude">Claude Code</a>, <a href="#tool-codex">Codex</a>, and <a href="#tool-opencode">OpenCode</a>. More tools and recipes are coming soon. Keep your existing AI access available while EnMaaS is in beta.</p></div><div class="card">
+  <div class="tool" id="tool-claude"><div class="tool-icon claude-logo"><svg viewBox="0 0 64 64" role="img" aria-label="Claude logo"><path d="M32 4 38 26 60 32 38 38 32 60 26 38 4 32 26 26Z"/></svg></div><div><p class="tool-note">Save your current configuration first so you can switch back easily.</p><h3>Claude Code</h3><p>Route Claude Code through EnMaaS, then use <span class="mono">/model</span> or model discovery to choose an available model.</p>
+    <h4 class="setup-heading">1. Connect Claude Code to EnMaaS</h4>
+    <p class="setup-copy">Add or merge this into <code>~/.claude/settings.json</code>.</p>
+    <div class="code"><button class="copy">copy</button><pre>{
+  "env": {
+    "ANTHROPIC_BASE_URL": "{{GATEWAY_URL}}",
+    "ANTHROPIC_API_KEY": "your-enmaas-key",
+    "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
   },
-  <span class="k">"agents"</span>: {
-    <span class="k">"defaults"</span>: {
-      <span class="k">"model"</span>: { <span class="k">"primary"</span>: <span class="s">"pricetag/Inferact/Qwen3.8-Flash-Next-NVFP4"</span> }
+  "modelPicker": {
+    "options": [
+      {
+        "model": "rits/zai-org/glm-5-3",
+        "label": "GLM 5.3",
+        "description": "Hosted via EnMaaS"
+      }
+    ]
+  },
+  "modelSettings": {
+    "rits/zai-org/glm-5-3": { "effortLevel": "medium" }
+  }
+}</pre></div>
+    <h4 class="setup-heading">2. Add hosted models to the <code>/model</code> picker</h4>
+    <p class="setup-copy">Claude Code’s picker filters model IDs, so discovery alone may not show hosted models. The <code>modelPicker</code> and <code>modelSettings</code> entries above explicitly add GLM. This requires Claude Code 2.1.242 or newer.</p>
+    <div class="code"><button class="copy">copy</button><pre># Or use a shell session
+export ANTHROPIC_BASE_URL="{{GATEWAY_URL}}"
+export ANTHROPIC_API_KEY="$ENMAAS_KEY"
+export CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1
+claude</pre></div>
+    <div class="warning"><span class="icon">!</span><div><strong>Use the exact hosted model ID.</strong><br>Run <code>/models</code> or <code>/model</code> after saving the settings. For GLM, use <code>rits/zai-org/glm-5-3</code> exactly and keep <code>effortLevel</code> set to <code>medium</code>.</div></div>
+    <div class="warning fallback"><span class="icon">↩</span><div><strong>Rollback if EnMaaS is unavailable</strong><br>Exit Claude Code, restore your previous <code>~/.claude/settings.json</code> backup, or remove the EnMaaS <code>env</code> block and relaunch. Keep the previous provider configuration unchanged so you can switch back immediately during this beta period.</div></div>
+  </div></div>
+  <div class="tool" id="tool-codex"><div class="tool-icon codex-logo"><svg viewBox="0 0 64 64" role="img" aria-label="Codex logo"><path d="M32 6 53 18v24L32 54 11 42V18Z"/><path d="m24 24-8 8 8 8m16-16 8 8-8 8M36 20 28 44"/></svg></div><div><p class="tool-note">Save your current configuration first so you can switch back easily.</p><h3>Codex</h3><p>Codex uses the OpenAI-compatible Responses API. Add EnMaaS as a provider and select it with a profile.</p>
+    <div class="code"><button class="copy">copy</button><pre># ~/.codex/config.toml
+[model_providers.enmaas]
+name = "EnMaaS"
+base_url = "{{GATEWAY_URL}}/v1"
+env_key = "ENMAAS_KEY"
+wire_api = "responses"
+
+# ~/.codex/enmaas.config.toml
+model = "rits/zai-org/glm-5-3"
+model_provider = "enmaas"
+
+# Use the EnMaaS profile
+export ENMAAS_KEY="your-enmaas-key"
+codex --profile enmaas</pre></div>
+    <p>Keep the model provider set to <code>enmaas</code> for EnMaaS requests. Change the <code>model</code> line to another model id only after checking the current gateway catalog.</p>
+    <div class="warning fallback"><span class="icon">↩</span><div><strong>Rollback if EnMaaS is unavailable</strong><br>Stop using the <code>enmaas</code> profile and return to your existing Codex profile, for example <code>codex --profile default</code>. Do not delete your old config; keeping both profiles makes rollback immediate while the service is being scaled and stabilized.</div></div>
+  </div></div>
+  <div class="tool" id="tool-opencode"><div class="tool-icon opencode-logo"><svg viewBox="0 0 64 64" role="img" aria-label="OpenCode logo"><path d="M32 7 54 19v26L32 57 10 45V19Z"/><path d="m25 23-9 9 9 9m14-18 9 9-9 9"/><path d="M35 20 29 44"/></svg></div><div><p class="tool-note">Save your current configuration first so you can switch back easily.</p><h3>OpenCode</h3><p>Use an isolated OpenCode configuration so your normal sessions remain untouched. The <code>/models</code> command lets you inspect the available EnMaaS models.</p>
+    <div class="code"><button class="copy">copy</button><pre># ~/.config/opencode-enmaas/opencode/opencode.jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "openai/rits/zai-org/glm-5-3",
+  "providers": {
+    "openai": {
+      "settings": { "baseURL": "{{GATEWAY_URL}}/v1" },
+      "env": ["ENMAAS_KEY"]
+    },
+    "anthropic": {
+      "settings": { "baseURL": "{{GATEWAY_URL}}/v1" },
+      "env": ["ENMAAS_KEY"]
     }
   }
 }</pre></div>
-  <div class="callout good"><span class="glyph">✓</span><p><strong>Restart OpenClaw after changing provider config</strong> — edits to <span class="mono">openclaw.json</span> are not picked up live. The hosted model may not appear in the gateway’s <span class="mono">/v1/models</span> listing either; that doesn’t mean it’s unreachable — the smoke test above is the real validation.</p></div>
-  <div class="callout warn"><span class="glyph">!</span><p><strong>Use <code>anthropic-messages</code> for the Anthropic provider.</strong> The URL is shared, but model availability depends on the selected API dialect and upstream compatibility.</p></div>
-</section>
+    <div class="code"><button class="copy">copy</button><pre># Isolate this test configuration
+export ENMAAS_KEY="your-enmaas-key"
+export XDG_CONFIG_HOME="$HOME/.config/opencode-enmaas"
+export XDG_DATA_HOME="$HOME/.local/share/opencode-enmaas"
+opencode --standalone
 
-<!-- ============ ROUTES (reference, after the setup steps) ============ -->
-<section id="routes">
-  <h2><span class="no">09</span>One gateway URL</h2>
-  <p class="lede">Use the same hostname for Anthropic Messages, OpenAI Chat Completions, OpenAI Responses, and Conversations. The client selects its API by the standard path and sends the key using that protocol's standard header.</p>
-  <div class="routes">
-    <div class="route">
-      <div><div class="name">Inference API</div>
-        <div class="dialect">/v1/messages · /v1/chat/completions · /v1/responses · /v1/conversations</div>
-        <div class="url">{{GATEWAY_URL}}</div></div>
-      <div class="note">The hostname is shared; path-based routes select the protocol-specific Praxis pipeline. Anthropic clients use <span class="mono">x-api-key</span>; OpenAI-compatible clients use <span class="mono">Authorization: Bearer</span>. <span class="mono">GET /v1/models</span> returns the matching API's model-list envelope, selected by Anthropic's <span class="mono">anthropic-version</span> header. OpenAI SDKs typically set their base URL to the gateway plus <span class="mono">/v1</span>; Anthropic SDKs use the host root.</div>
-      <div class="auth">one PriceTag key</div>
-    </div>
-    <div class="route">
-      <div><div class="name">Dashboard</div>
-        <div class="dialect">usage · spend · savings · your keys</div>
-        <div class="url">{{DASHBOARD_URL}}</div></div>
-      <div class="note">Every token you send shows up here within seconds, attributed by model and day, with cost computed against the live price list.</div>
-      <div class="auth">SSO login</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOSTED ============ -->
-<section id="hosted">
-  <h2><span class="no">10</span>Hosted models — Qwen 3.8 Flash Next &amp; GLM 5.3</h2>
-  <p class="lede">Models we serve ourselves, priced well under the vendors and tracked in your dashboard like everything else. They share the gateway host across supported API dialects.</p>
-
-  <h3 style="margin-top:18px">Qwen 3.8 Flash Next <span class="mono">(Inferact/Qwen3.8-Flash-Next-NVFP4)</span></h3>
-  <p class="lede">Self-hosted vLLM on our own hardware. FP4 quantisation, <strong>262K context</strong>, and the price per token is a rounding error — the default workhorse.</p>
-  <div class="rates">
-    <div class="rate"><div class="top"><span class="v">$0.15</span><span class="per">/ MTok</span></div><div class="k">Input</div></div>
-    <div class="rate"><div class="top"><span class="v">$0.47</span><span class="per">/ MTok</span></div><div class="k">Output</div></div>
-    <div class="rate"><div class="top"><span class="v">$0.016</span><span class="per">/ MTok</span></div><div class="k">Cache read</div></div>
-  </div>
-
-  <h3 style="margin-top:24px">GLM 5.3 <span class="mono">(rits/zai-org/glm-5-3)</span></h3>
-  <p class="lede">Zhipu's GLM 5.3 served behind the gateway — the step up in capability when Flash Next isn't enough, and currently <strong>free: $0 for every token type</strong>, input, output and cache alike. Unusually friendly to clients: it speaks <strong>all three dialects</strong> on this gateway (<span class="mono">/v1/messages</span>, <span class="mono">/v1/chat/completions</span>, <span class="mono">/v1/responses</span>) — and it shows up in the gateway's <span class="mono">/v1/models</span> listing, so discovery-aware clients can see it too.</p>
-  <div class="callout warn"><span class="glyph">!</span><p><strong>GLM is text-only — no image input.</strong> A pasted screenshot (or any image block anywhere in the conversation history) makes upstream reject the request with <span class="mono">400 — GLM-5.3 is not a multimodal model</span>, and it keeps failing every follow-up in that session because the old image travels with the history — <strong>including automatic compaction</strong>, which re-sends the whole history and dies on the same image even if the current message is plain text. Stuck? Switch back to a vision-capable model, start a fresh session, or (OpenCode) pin compaction to one: <span class="mono">"agent": { "compaction": { "model": "anthropic/claude-sonnet-5" } }</span>.</p></div>
-  <div class="rates">
-    <div class="rate"><div class="top"><span class="v">$0.00</span><span class="per">/ MTok</span></div><div class="k">Input</div></div>
-    <div class="rate"><div class="top"><span class="v">$0.00</span><span class="per">/ MTok</span></div><div class="k">Output</div></div>
-    <div class="rate"><div class="top"><span class="v">$0.00</span><span class="per">/ MTok</span></div><div class="k">Cache read</div></div>
-  </div>
-
-  <div class="duo" style="margin-top:24px">
-    <div class="card">
-      <h3>It's on the menu</h3>
-      <p class="cap">The gateway publishes hosted models on <span class="mono">/v1/models</span> — cheaper than guessing. For Anthropic-format discovery, include the version header:</p>
-      <div class="codebox"><button class="copy">copy</button><pre>curl <span class="s">{{GATEWAY_URL}}</span>/v1/models \
-  -H <span class="k">"x-api-key: $PRICETAG_KEY"</span> \
-  -H <span class="k">"anthropic-version: 2023-06-01"</span></pre></div>
-      <p class="cap" style="margin:10px 0 0">OpenAI-compatible clients use <span class="mono">Authorization: Bearer</span> and receive the OpenAI model-list format from the same path.</p>
-      <p class="cap" style="margin:10px 0 0">Claude Code's picker hides it (ids are filtered to <em>claude/anthropic</em>) — that's what the <span class="mono">modelPicker</span> entry in §3 fixes.</p>
-    </div>
-    <div class="card">
-      <h3>Good to know</h3>
-      <ul style="margin:0;padding-left:18px;font-size:14px;color:var(--muted);line-height:1.7">
-        <li>Context window: <strong>262,144 tokens</strong> (Qwen) / <strong>131,072</strong> (GLM)</li>
-        <li>Streaming and tool calling supported (Anthropic dialect)</li>
-        <li>Effort levels: low / medium / xhigh — not "high" (Qwen)</li>
-        <li>GLM also answers OpenAI-dialect calls through this gateway</li>
-        <li>GLM is <strong>text-only</strong> — images in the conversation return 400</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DASHBOARD BAND ============ -->
-<section id="monitor" style="padding-bottom:0">
-  <div class="band">
-    <div class="inner">
-      <div>
-        <h2>Watch every token pay its way</h2>
-        <p>The dashboard meters each request the moment it lands: per-model usage, live spend against your {{QUOTA_LABEL}} monthly allowance, and the money saved by routing to hosted models — with a full price list a click away.</p>
-        <a class="btn" href="{{DASHBOARD_URL}}/dashboard">Open the dashboard</a>
-        <a class="btn ghost" href="#quickstart">Back to quick start</a>
-      </div>
-      <svg id="pulse" viewBox="0 0 220 64" preserveAspectRatio="none" aria-hidden="true">
-        <path class="wire" d="M0 40 H40 L48 24 L56 50 L66 12 L76 46 L84 38 H110 L118 28 L126 44 L134 20 L142 42 L150 36 H220"/>
-        <path class="trail" id="trail" d="M0 40 H40 L48 24 L56 50 L66 12 L76 46 L84 38 H110 L118 28 L126 44 L134 20 L142 42 L150 36 H220"/>
-        <circle class="glow" r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite" path="M0 40 H40 L48 24 L56 50 L66 12 L76 46 L84 38 H110 L118 28 L126 44 L134 20 L142 42 L150 36 H220"/></circle>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span>PriceTag — the AI gateway where every token has a price tag.</span>
-  <span class="mono">one gateway URL · dashboard — one key</span>
-</footer>
-
-</div><!-- /wrap -->
-
+# Inside OpenCode
+/models</pre></div>
+    <p>Use the provider matching the model's API dialect: Anthropic-compatible models use <code>/v1/messages</code>; OpenAI-compatible models use <code>/v1/responses</code> or <code>/v1/chat/completions</code>. The model list is the source of truth for what is currently available.</p><p class="tool-info"><strong>OpenCode does not need a separate model-picker block.</strong> Its <code>/models</code> command reads the gateway catalog, and the <code>model</code> field pins the default model. Update that field only with an exact model ID returned by the catalog.</p>
+    <div class="warning fallback"><span class="icon">↩</span><div><strong>Rollback if EnMaaS is unavailable</strong><br>Close the standalone EnMaaS process and run your normal <code>opencode</code> command without the EnMaaS environment variables. Your normal <code>XDG_CONFIG_HOME</code> and <code>XDG_DATA_HOME</code> remain separate, so existing sessions and providers are preserved.</div></div>
+  </div></div>
+  <div class="soon"><span>＋</span><span><b>More tools coming soon.</b> Tell us what you want supported in <a href="https://slack.com/archives/forum-enmaas">#forum-enmaas</a>.</span></div>
+</div></section>
+<section id="models"><div class="head"><h2>Hosted models, starting with GLM.</h2><p class="lede">GLM 5.3 is the hosted model available in this environment: fast, capable, and text-focused. More hosted models are coming soon.</p></div><div class="card accent"><div class="model-line"><span class="model-id">rits/zai-org/glm-5-3</span><span class="model-note">GLM 5.3 · hosted</span></div><div class="grid" style="margin-top:14px"><p><strong>262K</strong><br><span class="mono">context window</span></p><p><strong>Text-first</strong><br><span class="mono">best for engineering work</span></p></div></div></section>
+<section id="spend"><div class="head"><h2>Your dashboard is coming soon.</h2><p class="lede">The EnMaaS dashboard is being prepared. Until it is available, use the existing AI Budget Help tool to view your spend until the new EnMaaS dashboard is ready.</p></div><div class="card blue dashboard-card"><div class="preview-tag">Illustrative preview · not live data</div><div class="dashboard"><div class="pie-grid"><div class="mini-pie-card"><div class="mini-pie pie-hosted"><div class="mini-pie-label">hosted<br>68%</div></div><span>Hosted vs frontier</span></div><div class="mini-pie-card"><div class="mini-pie pie-models"><div class="mini-pie-label">model<br>spend</div></div><span>Model mix</span></div><div class="mini-pie-card"><div class="mini-pie pie-tokens"><div class="mini-pie-label">token<br>mix</div></div><span>Token types</span></div></div><div class="bars"><div class="bar-row"><span class="bar-name">Claude Sonnet — output</span><div class="bar-track"><div class="bar-fill" data-width="84"></div></div><span class="bar-amount">$42.80</span></div><div class="bar-row"><span class="bar-name">GPT-5.6 — output</span><div class="bar-track"><div class="bar-fill blue" data-width="62"></div></div><span class="bar-amount">$31.40</span></div><div class="bar-row"><span class="bar-name">GLM 5.3 — output</span><div class="bar-track"><div class="bar-fill amber" data-width="37"></div></div><span class="bar-amount">$18.60</span></div></div></div></div><div class="temporary-note"><strong>Temporary spend access while the dashboard is being built</strong><span>The EnMaaS dashboard is not live yet. Until it launches, use the existing AI Budget Help tool to view your spend.</span><a class="btn" href="https://source.redhat.com/departments/products_and_global_engineering/pge_cloud_ops/wiki~2/onboarding_checklist_for_openshift_engineering__qe/ai_budget_help" target="_blank" rel="noopener noreferrer">Open AI Budget Help for now ↗</a></div></section>
+<section id="availability"><div class="head"><h2>Know what to expect.</h2><p class="lede">EnMaaS is being scaled out and tuned. We want you to know how to keep working while it evolves.</p></div><div class="warning"><span class="icon">!</span><div><strong>Availability and model stability</strong><br>Models, capacity, and routing are still being expanded. Short service interruptions or model availability changes may occur during updates and scaling.</div></div><div class="warning fallback"><span class="icon">↩</span><div><strong>Keep a fallback ready</strong><br>For important work, retain your previous provider configuration and workflow. If EnMaaS is temporarily unavailable, switch back to that workflow and retry later.</div></div></section>
+<div style="height:20px"></div>
+</main>
 <script>
 (function(){
   "use strict";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---- copy buttons ---- */
   document.querySelectorAll(".copy").forEach(function(btn){
     btn.addEventListener("click", function(){
-      var pre = btn.parentElement.querySelector("pre");
-      var txt = pre.innerText;
-      function done(){ btn.textContent="copied"; btn.classList.add("done");
-        setTimeout(function(){ btn.textContent="copy"; btn.classList.remove("done"); },1400); }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(txt).then(done, function(){});
-      } else {
-        var ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta);
-        ta.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(ta); done();
-      }
+      var pre=btn.parentElement.querySelector("pre");
+      function done(){btn.textContent="copied";btn.classList.add("done");setTimeout(function(){btn.textContent="copy";btn.classList.remove("done")},1300)}
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(pre.innerText).then(done,function(){});
     });
   });
-
-  /* ---- savings bars ---- */
-  var cmp = document.getElementById("compare");
-  if (cmp) {
-    var fills = cmp.querySelectorAll(".fill");
-    if (reduced) { fills.forEach(function(f){ f.style.width=f.getAttribute("data-w")+"%"; }); }
-    else {
-      requestAnimationFrame(function(){ setTimeout(function(){
-        fills.forEach(function(f){ f.style.width=f.getAttribute("data-w")+"%"; });
-      }, 250); });
-    }
+  var spend=document.getElementById("spend"), bars=document.querySelectorAll(".bar-fill"), pies=document.querySelectorAll(".mini-pie"), refreshTimer=null;
+  function animateBars(){bars.forEach(function(b,i){setTimeout(function(){b.style.width=b.getAttribute("data-width")+"%"},i*120)})}
+  function refreshDashboard(){
+    if(reduced){animateBars();return;}
+    pies.forEach(function(p){p.style.animation="none"});
+    bars.forEach(function(b){b.style.transition="none";b.style.width="0"});
+    void spend.offsetWidth;
+    pies.forEach(function(p){p.style.animation=""});
+    bars.forEach(function(b){b.style.transition=""});
+    animateBars();
   }
+  if(reduced) animateBars();
+  else if("IntersectionObserver" in window) new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){refreshDashboard();if(!refreshTimer)refreshTimer=setInterval(refreshDashboard,5000)}
+    else if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null}
+  })},{threshold:.18}).observe(spend);
 
-  /* ---- hero: tokens fly in, get priced ---- */
-  var cv = document.getElementById("flow");
-  if (!cv || !cv.getContext) return;
-  var running = true;
-  var ctx = cv.getContext("2d");
-  var dpr = Math.min(window.devicePixelRatio||1, 2);
-  var W=0, H=0, cx=0, tokens=[];
-  var GLYPHS = ["0x7f3a","tok","ƒ(x)","⧉","{ }","42","1010",">>","$?","…"];
-  var PRICES = ["$0.15","$0.47","$0.016","$3","$15","$0.60","$0.02","$1.20"];
-  function accent(){ return getComputedStyle(document.documentElement).getPropertyValue("--accent").trim()||"#0E7A4B"; }
-  function ink(){ return getComputedStyle(document.documentElement).getPropertyValue("--faint").trim()||"#8A988F"; }
-  function resize(){
-    var r = cv.parentElement.getBoundingClientRect();
-    W = r.width; H = r.height;
-    cv.width = W*dpr; cv.height = H*dpr;
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    /* the gateway line sits directly under the "OpenCode" nav link — the
-       top bar is the reference the eye already scans, and the line reads as
-       the gate dropped straight below it (nav is a sibling of the header,
-       so compare against the canvas rect for the same x-space) */
-    var cr = cv.getBoundingClientRect();
-    var el = document.querySelector('nav a[href="#opencode"]');
-    if (el) {
-      var lr = el.getBoundingClientRect();
-      cx = lr.left - cr.left + lr.width/2;
-    } else {
-      cx = W * 0.72; // fallback if the nav is ever restructured
-    }
-    cx = Math.min(W-24, Math.max(24, cx));
+  var cv=document.getElementById("flow"); if(!cv||!cv.getContext)return;
+  var ctx=cv.getContext("2d"), dpr=Math.min(window.devicePixelRatio||1,2), W=0,H=0,cx=0,tokens=[],running=true;
+  var GLYPHS=["0x7f3a","tok","ƒ(x)","⧉","{ }","42","1010",">>","$?","…"];
+  var PRICES=["$0.15","$0.47","$0.016","$3","$15","$0.60","$0.02","$1.20"];
+  function resize(){var r=cv.parentElement.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);cx=Math.min(W-24,Math.max(24,W*.62))}
+  function spawn(){return{x:-30,y:16+Math.random()*Math.max(30,H-32),vx:.4+Math.random()*.8,g:GLYPHS[(Math.random()*GLYPHS.length)|0],priced:false,stamp:PRICES[(Math.random()*PRICES.length)|0],born:0,alpha:0}}
+  resize();addEventListener("resize",resize);addEventListener("load",resize);for(var i=0;i<26;i++){var t=spawn();t.x=Math.random()*cx;tokens.push(t)}
+  function frame(ts){ctx.clearRect(0,0,W,H);var grad=ctx.createLinearGradient(cx-42,0,cx+42,0);grad.addColorStop(0,"rgba(8,127,80,0)");grad.addColorStop(.5,"rgba(8,127,80,.12)");grad.addColorStop(1,"rgba(8,127,80,0)");ctx.fillStyle=grad;ctx.fillRect(cx-42,0,84,H);ctx.strokeStyle="rgba(8,127,80,.42)";ctx.setLineDash([3,5]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();ctx.setLineDash([]);ctx.textBaseline="middle";
+    for(var i=0;i<tokens.length;i++){var t=tokens[i];if(!t.priced&&t.x>=cx){t.priced=true;t.born=ts}t.x+=t.vx*(t.priced?.35:1);t.alpha=Math.min(t.alpha+.03,1);if(!t.priced){ctx.font='500 12px "IBM Plex Mono",monospace';ctx.fillStyle="rgba(82,101,91,.7)";ctx.globalAlpha=t.alpha;ctx.fillText(t.g,t.x,t.y)}else{var age=ts-t.born,fade=age>2400?Math.max(0,1-(age-2400)/1600):1,pop=age<180?1+.35*(1-age/180):1;ctx.globalAlpha=t.alpha*fade;ctx.fillStyle="#087f50";ctx.font='600 '+(12*pop).toFixed(1)+'px "IBM Plex Mono",monospace';ctx.fillText(t.stamp,t.x,t.y)}ctx.globalAlpha=1;if((t.priced&&(ts-t.born)>4200)||t.x>W+60)tokens[i]=spawn()}
+    if(!reduced&&running)requestAnimationFrame(frame)
   }
-  function spawn(){
-    return {
-      x: -30,
-      y: 14 + Math.random()*(H-28),
-      vx: 0.35 + Math.random()*0.85,
-      g: GLYPHS[(Math.random()*GLYPHS.length)|0],
-      priced: false, stamp: PRICES[(Math.random()*PRICES.length)|0],
-      born: 0, alpha: 0
-    };
-  }
-  resize(); window.addEventListener("resize", resize);
-  window.addEventListener("load", resize); // webfonts change headline width
-  for (var i=0;i<26;i++){ var t=spawn(); t.x = Math.random()*cx; tokens.push(t); }
-
-  function frame(ts){
-    ctx.clearRect(0,0,W,H);
-    var a = accent(), ic = ink();
-
-    /* gateway column */
-    var grad = ctx.createLinearGradient(cx-40,0,cx+40,0);
-    grad.addColorStop(0,"rgba(14,122,75,0)");
-    grad.addColorStop(.5, a + "22");
-    grad.addColorStop(1,"rgba(14,122,75,0)");
-    ctx.fillStyle = grad; ctx.fillRect(cx-40,0,80,H);
-    ctx.strokeStyle = a + "55"; ctx.setLineDash([3,5]); ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,H); ctx.stroke(); ctx.setLineDash([]);
-
-    ctx.textBaseline = "middle";
-    for (var i=0;i<tokens.length;i++){
-      var t=tokens[i];
-      if (!t.priced && t.x>=cx) { t.priced=true; t.born=ts; }
-      t.x += t.vx * (t.priced?0.35:1);
-      t.alpha = Math.min(t.alpha+0.03, 1);
-
-      if (!t.priced) {
-        ctx.font = '500 12px "IBM Plex Mono", monospace';
-        ctx.fillStyle = ic; ctx.globalAlpha = t.alpha*0.75;
-        ctx.fillText(t.g, t.x, t.y);
-      } else {
-        /* the token becomes its price: glyph is gone, a dollar number takes
-           its place with a small pop, holds, then fades */
-        var age = ts - t.born;
-        var fade = age>2400 ? Math.max(0,1-(age-2400)/1600) : 1;
-        var pop = age<180 ? 1 + 0.35*(1-age/180) : 1;
-        ctx.globalAlpha = t.alpha*fade;
-        ctx.fillStyle = a;
-        ctx.font = '600 ' + (12*pop).toFixed(1) + 'px "IBM Plex Mono", monospace';
-        ctx.fillText(t.stamp, t.x, t.y);
-      }
-      ctx.globalAlpha = 1;
-      var dead = t.priced && (ts-t.born) > 4200;
-      if (dead || t.x > W+60) tokens[i] = spawn();
-    }
-    if (!reduced && running) requestAnimationFrame(frame);
-  }
-  if (reduced) { frame(0); } else { requestAnimationFrame(frame); }
-
-  /* pause hero canvas when scrolled away */
-  if (!reduced && "IntersectionObserver" in window) {
-    new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if (e.isIntersecting && !running){ running=true; requestAnimationFrame(frame); }
-        else if (!e.isIntersecting) running=false;
-      });
-    },{threshold:0.01}).observe(cv);
-  }
-})();
-
-/* ---- /model picker replay (HTML ships the final frame; JS animates a replay
-       each time the window scrolls into view; reduced-motion keeps the frame) */
-(function(){
-  "use strict";
-  var win = document.getElementById("ccwin");
-  if (!win || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var typed = win.querySelector("#ctyped");
-  var rows = [].slice.call(win.querySelectorAll(".head, .sub, .r, .eff"));
-  var CMD = "/model";
-  var timers = [], playing = false, inView = false;
-  function after(ms, fn){ timers.push(setTimeout(fn, ms)); }
-  function clearAll(){ timers.forEach(clearTimeout); timers = []; }
-  function play(){
-    if (playing) return;
-    playing = true; clearAll();
-    typed.textContent = "";
-    rows.forEach(function(r){ r.classList.add("out"); });
-    var i = 0;
-    (function type(){
-      after(95, function(){
-        typed.textContent = CMD.slice(0, ++i);
-        if (i < CMD.length) type();
-        else after(420, reveal);
-      });
-    })();
-  }
-  function reveal(){
-    rows.forEach(function(r, n){ after(n*110, function(){ r.classList.remove("out"); }); });
-    after(rows.length*110 + 7000, function(){ playing = false; if (inView && !document.hidden) play(); });
-  }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        inView = e.isIntersecting;
-        if (inView && !playing && !document.hidden) play();
-      });
-    },{threshold:0.25}).observe(win);
-  } else {
-    inView = true; play();
-  }
+  if(reduced)frame(0);else requestAnimationFrame(frame);
+  if(!reduced&&"IntersectionObserver"in window)new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!running){running=true;requestAnimationFrame(frame)}else if(!e.isIntersecting)running=false})},{threshold:.01}).observe(cv);
 })();
 </script>
 </body>
