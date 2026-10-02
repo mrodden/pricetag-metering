@@ -40,7 +40,17 @@ curl {{GATEWAY_URL}}/v1/messages \
     "ANTHROPIC_BASE_URL": "{{GATEWAY_URL}}",
     "ANTHROPIC_API_KEY": "your-enmaas-key",
     "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
-  },
+  }
+}</pre></div>
+    <div class="code"><button class="copy">copy</button><pre># Or use a shell session
+export ANTHROPIC_BASE_URL="{{GATEWAY_URL}}"
+export ANTHROPIC_API_KEY="$ENMAAS_KEY"
+export CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1
+claude</pre></div>
+    <h4 class="setup-heading">2. Add hosted models to the <code>/model</code> picker</h4>
+    <p class="setup-copy">Claude Code’s picker filters model IDs, so discovery alone may not show hosted models. Add or merge these entries into <code>~/.claude/settings.json</code>. This requires Claude Code 2.1.242 or newer.</p>
+    <div class="code"><button class="copy">copy</button><pre># ~/.claude/settings.json — add
+{
   "modelPicker": {
     "options": [
       {
@@ -54,13 +64,6 @@ curl {{GATEWAY_URL}}/v1/messages \
     "rits/zai-org/glm-5-3": { "effortLevel": "medium" }
   }
 }</pre></div>
-    <h4 class="setup-heading">2. Add hosted models to the <code>/model</code> picker</h4>
-    <p class="setup-copy">Claude Code’s picker filters model IDs, so discovery alone may not show hosted models. The <code>modelPicker</code> and <code>modelSettings</code> entries above explicitly add GLM. This requires Claude Code 2.1.242 or newer.</p>
-    <div class="code"><button class="copy">copy</button><pre># Or use a shell session
-export ANTHROPIC_BASE_URL="{{GATEWAY_URL}}"
-export ANTHROPIC_API_KEY="$ENMAAS_KEY"
-export CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1
-claude</pre></div>
     <div class="warning"><span class="icon">!</span><div><strong>Use the exact hosted model ID.</strong><br>Run <code>/models</code> or <code>/model</code> after saving the settings. For GLM, use <code>rits/zai-org/glm-5-3</code> exactly and keep <code>effortLevel</code> set to <code>medium</code>.</div></div>
     <div class="warning fallback"><span class="icon">↩</span><div><strong>Rollback if EnMaaS is unavailable</strong><br>Exit Claude Code, restore your previous <code>~/.claude/settings.json</code> backup, or remove the EnMaaS <code>env</code> block and relaunch. Keep the previous provider configuration unchanged so you can switch back immediately during this beta period.</div></div>
   </div></div>
