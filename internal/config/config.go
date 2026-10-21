@@ -234,6 +234,14 @@ type Kubernetes struct {
 	PipelineConfigMapNamespace string
 	PipelineConfigMapKey       string
 
+	// RoutingOverlayConfigMaps names the ConfigMaps holding the gateway's
+	// intelligent_route routing overlays (comma-separated). Each overlay's
+	// routing-overlay.json key holds a candidate list that serves as the
+	// model catalogue when the gateway uses overlay-based routing (the
+	// PR-12 migration and later). Defaults to the standard EnMaaS overlay
+	// names; empty disables the overlay path. Optional.
+	RoutingOverlayConfigMaps []string
+
 	// SubscriptionName names the MaaSSubscription CR (in Namespace) whose
 	// spec.owner.groups is the canonical, live list of valid org groups.
 	SubscriptionName string
@@ -331,6 +339,7 @@ func Load() Config {
 			PipelineConfigMap:          os.Getenv("PIPELINE_CONFIGMAP"),
 			PipelineConfigMapNamespace: os.Getenv("PIPELINE_CONFIGMAP_NAMESPACE"),
 			PipelineConfigMapKey:       envDefault("PIPELINE_CONFIGMAP_KEY", "config.yaml"),
+			RoutingOverlayConfigMaps:   envList(envDefault("ROUTING_OVERLAY_CONFIGMAPS", "praxis-routing-openai,praxis-routing-unified")),
 			SubscriptionName:           envDefault("MAAS_SUBSCRIPTION_NAME", "dogfood-team"),
 		},
 	}
