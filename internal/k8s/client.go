@@ -120,9 +120,33 @@ func (c *Client) ListProviders(ctx context.Context) ([]ProviderInfo, error) {
 }
 
 func (c *Client) ListModels(ctx context.Context) ([]ModelInfo, error) {
+	var result []ModelInfo
+	var sourceErr error
 	if c.cfg.ModelGroup == "" {
-		return c.listModelsFromConfig(ctx)
+		result, sourceErr = c.listModelsFromConfig(ctx)
+	} else {
+		result, sourceErr = c.listModelsFromCRDs(ctx)
 	}
+
+	seen := make(map[string]bool, len(result))
+	for _, model := range result {
+		seen[model.Name] = true
+	}
+	overlays := c.listModelsFromOverlays(ctx, seen)
+	result = append(result, overlays...)
+	if len(result) == 0 && sourceErr != nil {
+		return nil, sourceErr
+	}
+	if sourceErr != nil {
+		slog.Warn("model catalogue source unavailable; using routing overlays", "error", sourceErr)
+	}
+	return result, nil
+}
+
+// listModelsFromCRDs reads the model catalogue from the configured CRDs.
+// ListModels merges routing overlays after this source returns, so an
+// overlay-only deployment can still serve a catalogue.
+func (c *Client) listModelsFromCRDs(ctx context.Context) ([]ModelInfo, error) {
 	list, err := c.client.Resource(c.modelGVR()).Namespace(c.namespace).List(ctx, metav1.ListOptions{})
 
 	// A configured fallback group covers catalogues mid-migration between
@@ -349,7 +373,7 @@ type praxisTop struct {
 type catalogModel struct {
 	ID          string `yaml:"id"`
 	DisplayName string `yaml:"display_name"`
-	OwnedBy    string `yaml:"owned_by"`
+	OwnedBy     string `yaml:"owned_by"`
 }
 
 type routerRoute struct {
@@ -425,12 +449,6 @@ func (c *Client) listModelsFromConfig(ctx context.Context) ([]ModelInfo, error) 
 			}
 		}
 	}
-
-	// The intelligent_route migration (PR-12 and later) moved model
-	// definitions from the inline router/model_catalog filters into
-	// routing overlay ConfigMaps. Merge those candidates in so the
-	// catalogue reflects overlay-routed models.
-	result = append(result, c.listModelsFromOverlays(ctx, seen)...)
 
 	return result, nil
 }
